@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Kamu Tipe Karyawan Apa? — The 40 Reset</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --gold:#C9A84C;
+  --dark:#0A0A0F;
+  --card:#111118;
+  --border:#2A2A3A;
+  --text:#FFFFFF;
+  --muted:#9999AA;
+  --font:'Plus Jakarta Sans',sans-serif;
+}
+body{background:var(--dark);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;padding:2rem 1.5rem 3rem;max-width:520px;margin:0 auto;animation:fadeUp .35s ease}
+.screen.active{display:flex;flex-direction:column}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TOPBAR ── */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(10,10,15,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.topbar-brand{font-size:.85rem;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.progress-bar-wrap{width:120px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease}
+.progress-text{font-size:.75rem;color:var(--muted);font-weight:600}
+
+/* ── LANDING ── */
+#landing{justify-content:center;align-items:center;text-align:center;padding-top:5rem}
+.land-tag{font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:1.5rem}
+.land-title{font-size:2.6rem;font-weight:900;line-height:1.05;margin-bottom:.5rem}
+.land-title em{font-style:normal;color:var(--gold)}
+.land-divider{width:40px;height:2px;background:var(--gold);margin:1.2rem auto;opacity:.6}
+.land-sub{font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:2rem;font-weight:500;max-width:340px}
+.land-meta{font-size:.8rem;color:var(--muted);margin-bottom:2.5rem;letter-spacing:.04em;font-weight:500}
+
+/* ── FORM ── */
+.form-wrap{width:100%;max-width:380px}
+.form-label{font-size:.85rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem;display:block}
+.form-input{width:100%;padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);color:var(--text);font-size:1rem;font-family:var(--font);font-weight:600;border-radius:8px;outline:none;margin-bottom:.85rem;transition:border-color .2s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--muted);font-weight:400}
+.btn-primary{width:100%;padding:1.1rem;background:var(--gold);border:none;color:#0A0A0F;font-size:1rem;font-weight:800;font-family:var(--font);border-radius:8px;cursor:pointer;min-height:54px;transition:opacity .15s;letter-spacing:.02em}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{opacity:.8}
+
+/* ── TIPE BADGES PREVIEW ── */
+.tipe-preview{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:2rem;max-width:380px}
+.tipe-badge{padding:4px 10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:20px;font-size:.72rem;font-weight:600;color:var(--gold)}
+
+/* ── QUESTION SCREEN ── */
+#quiz{padding-top:5rem;justify-content:flex-start}
+.q-num{font-size:.75rem;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:.75rem}
+.q-text{font-size:1.25rem;font-weight:800;line-height:1.4;margin-bottom:.5rem;color:var(--text)}
+.q-sub{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;font-weight:500}
+.options{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem}
+.opt{padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:.85rem;text-align:left}
+.opt:active{transform:scale(.99)}
+.opt.selected{background:rgba(201,168,76,.12);border-color:var(--gold)}
+.opt-letter{width:28px;height:28px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:var(--muted);flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt.selected .opt-letter{background:var(--gold);color:#0A0A0F}
+.opt-text{font-size:.95rem;font-weight:500;color:var(--text);line-height:1.5}
+.opt.selected .opt-text{font-weight:600}
+.btn-next{width:100%;padding:1.1rem;background:transparent;border:2px solid var(--gold);color:var(--gold);font-size:1rem;font-weight:700;font-family:var(--font);border-radius:8px;cursor:pointer;min-height:54px;transition:all .15s;margin-top:auto}
+.btn-next:hover{background:rgba(201,168,76,.1)}
+.btn-next:disabled{opacity:.3;cursor:not-allowed}
+
+/* ── RESULT SCREEN ── */
+#result{padding-top:5rem;justify-content:flex-start}
+.result-tag{font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:1rem}
+.result-intro{font-size:1rem;color:var(--muted);margin-bottom:1.5rem;font-weight:500;line-height:1.7}
+.tipe-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.tipe-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold)}
+.tipe-rank{font-size:.72rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:.5rem}
+.tipe-emoji{font-size:2.5rem;margin-bottom:.5rem;display:block}
+.tipe-name{font-size:1.4rem;font-weight:900;color:var(--text);margin-bottom:.3rem}
+.tipe-tagline{font-size:.9rem;color:var(--gold);font-style:italic;font-weight:600;margin-bottom:.75rem;line-height:1.5}
+.tipe-desc{font-size:.9rem;color:var(--muted);line-height:1.7;font-weight:500}
+.divider-gold{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.5rem 0;opacity:.4}
+.msg-from{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:1.3rem;margin-bottom:1.5rem}
+.msg-from p{font-size:.92rem;color:var(--text);line-height:1.8;font-weight:500}
+.msg-from p strong{color:var(--gold)}
+.cta-section{margin-bottom:2rem}
+.cta-label{font-size:.72rem;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:.75rem;text-align:center}
+.btn-cta-primary{display:block;width:100%;padding:1.1rem;background:var(--gold);border:none;color:#0A0A0F;font-size:1rem;font-weight:800;font-family:var(--font);border-radius:8px;cursor:pointer;min-height:54px;text-decoration:none;text-align:center;margin-bottom:.75rem;line-height:1.4}
+.btn-cta-secondary{display:block;width:100%;padding:1rem;background:transparent;border:1.5px solid var(--border);color:var(--muted);font-size:.9rem;font-weight:600;font-family:var(--font);border-radius:8px;cursor:pointer;min-height:48px;text-decoration:none;text-align:center;transition:all .15s}
+.btn-cta-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.share-section{text-align:center;margin-bottom:1rem}
+.share-label{font-size:.8rem;color:var(--muted);margin-bottom:.75rem;font-weight:500}
+.btn-share{padding:.75rem 1.5rem;background:transparent;border:1.5px solid var(--border);color:var(--text);font-size:.85rem;font-weight:700;font-family:var(--font);border-radius:8px;cursor:pointer;transition:all .15s}
+.btn-share:hover{border-color:var(--gold);color:var(--gold)}
+.footer-brand{text-align:center;font-size:.75rem;color:var(--muted);margin-top:2rem;padding-bottom:1rem}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--gold);color:#0A0A0F;padding:.75rem 1.5rem;border-radius:8px;font-size:.85rem;font-weight:700;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <div class="topbar-brand">The 40 Reset</div>
+  <div style="display:flex;align-items:center;gap:.75rem" id="progressWrap" style="display:none">
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-text" id="progressText">0/20</div>
+  </div>
+</div>
+
+<!-- ── LANDING ── -->
+<div class="screen active" id="landing">
+  <div class="land-tag">The 40 Reset · by Dhimas Garendi</div>
+  <h1 class="land-title">Kamu<br>Tipe Karyawan<br><em>Yang Mana?</em></h1>
+  <div class="land-divider"></div>
+  <p class="land-sub">"Di setiap kantor, ada 34 tipe karyawan. Masing-masing punya cerita, pain, dan cara bertahannya sendiri. Kamu yang mana?"</p>
+  <div class="land-meta">25 Pertanyaan &nbsp;·&nbsp; ±7 Menit</div>
+  <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.5rem;max-width:380px;text-align:center">
+    <div style="font-size:.8rem;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem">❤️ Program Berbagi</div>
+    <div style="font-size:.88rem;color:var(--muted);line-height:1.7;font-weight:500">Setiap produk yang terjual — <strong style="color:var(--text)">10% langsung disumbangkan</strong> ke yayasan yang membutuhkan. Bukan janji. Gue share buktinya setiap bulan.</div>
+  </div>
+  <div style="margin-bottom:.75rem;font-size:.75rem;color:var(--muted);font-weight:600;text-align:center;letter-spacing:.06em;text-transform:uppercase">34 Tipe — Kamu yang mana?</div>
+  <div class="tipe-preview">
+    <span class="tipe-badge">🧟 The Zombie</span>
+    <span class="tipe-badge">🔥 The Slow Burn</span>
+    <span class="tipe-badge">💣 The Time Bomb</span>
+    <span class="tipe-badge">👻 The Ghost Employee</span>
+    <span class="tipe-badge">💸 The Hostage</span>
+    <span class="tipe-badge">💪 The Last One Standing</span>
+    <span class="tipe-badge">😱 The Newcomer Shock</span>
+    <span class="tipe-badge">🎭 The Corporate Actor</span>
+    <span class="tipe-badge">😤 The Burned</span>
+    <span class="tipe-badge">👑 The Survivor</span>
+    <span class="tipe-badge">😎 The Comfortable Prisoner</span>
+    <span class="tipe-badge">🙏 The People Pleaser</span>
+    <span class="tipe-badge">🌀 The Midlife Crisis</span>
+    <span class="tipe-badge">🔄 The Reshuffled</span>
+    <span class="tipe-badge">🏆 The Underdog</span>
+    <span class="tipe-badge">🌟 The Invisible Star</span>
+    <span class="tipe-badge">🎓 The Overqualified</span>
+    <span class="tipe-badge">🧱 The Glass Ceiling</span>
+    <span class="tipe-badge">🍀 The Lucky One</span>
+    <span class="tipe-badge">🔒 The Trapped Specialist</span>
+    <span class="tipe-badge">🦕 The Dinosaur</span>
+    <span class="tipe-badge">🏅 The Real Performer</span>
+    <span class="tipe-badge">🌱 The Silent Planner</span>
+    <span class="tipe-badge">💼 The Side Hustler</span>
+    <span class="tipe-badge">💔 The Comeback</span>
+    <span class="tipe-badge">🌠 The Fallen Star</span>
+    <span class="tipe-badge">🏛️ The Old Regime</span>
+    <span class="tipe-badge">🚪 The Outsider</span>
+    <span class="tipe-badge">🎯 The Scapegoat</span>
+    <span class="tipe-badge">👥 The Corporate Orphan</span>
+    <span class="tipe-badge">👅 The Licker</span>
+    <span class="tipe-badge">🐑 The Golden Child</span>
+    <span class="tipe-badge">🏛️ The Politician</span>
+    <span class="tipe-badge">🔁 The On-and-Off</span>
+  </div>
+  <div class="form-wrap">
+    <label class="form-label" for="codeInput">Kode akses</label>
+    <input type="text" id="codeInput" class="form-input" placeholder="Masukkan kode akses" autocomplete="off" maxlength="20" style="text-transform:uppercase;letter-spacing:.15em;text-align:center">
+    <div id="codeErr" style="color:#ff6b6b;font-size:.85rem;min-height:1.2rem;margin-bottom:.5rem;font-weight:500;text-align:center"></div>
+    <button class="btn-primary" onclick="startQuiz()">Mulai Quiz →</button>
+    <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:1rem">Dapat kode akses dari email The 40 Reset</p>
+  </div>
+</div>
+
+<!-- ── QUIZ ── -->
+<div class="screen" id="quiz">
+  <div class="q-num" id="qNum">Pertanyaan 1 dari 20</div>
+  <div class="q-text" id="qText"></div>
+  <div class="q-sub" id="qSub"></div>
+  <div class="options" id="options"></div>
+  <button class="btn-next" id="btnNext" disabled onclick="nextQ()">Lanjut →</button>
+</div>
+
+<!-- ── RESULT ── -->
+<div class="screen" id="result"></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ──
+const TIPES = {
+  zombie:{name:"The Zombie",emoji:"🧟",tagline:"Masih hidup, tapi udah mati di dalam.",desc:"Tubuhnya di kantor, jiwanya udah cabut sejak lama. Tidak marah, tidak sedih — hanya kosong. Yang paling bahaya: kamu sendiri mungkin sudah tidak sadar ini terjadi.",cta:"Kalau kamu merasa kayak gini — ini bukan nasib. Ini tanda."},
+  slowburn:{name:"The Slow Burn",emoji:"🔥",tagline:"Kelihatan baik-baik aja — tapi pelan-pelan terbakar dari dalam.",desc:"Setiap hari ada yang sedikit mengikis. Tidak ada ledakan besar — hanya terkikis sampai suatu hari kamu sadar sudah tidak mengenali diri sendiri. Badan sudah kasih sinyal. Asam lambung, migrain, susah tidur.",cta:"Kamu belum hancur — tapi kamu perlu tahu kapan harus berhenti."},
+  timebomb:{name:"The Time Bomb",emoji:"💣",tagline:"Satu trigger lagi — dan kamu cabut.",desc:"Sudah di ujung. Setiap Senin pagi terasa seperti hukuman. Masih di sini bukan karena mau — tapi belum menemukan momen yang tepat. Tinggal nunggu satu hal lagi.",cta:"Pastikan keputusan resign kamu bukan dari emosi — tapi dari rencana."},
+  ghost:{name:"The Ghost Employee",emoji:"👻",tagline:"Sudah resign — di dalam. Tinggal tunggu momen yang tepat.",desc:"Sudah damai. Tidak marah, tidak drama. Di kepala sudah clear. Tinggal tunggu finansial siap, landing pad siap. Yang paling tenang di antara semua tipe yang mau keluar.",cta:"Kamu sudah siap mental — sekarang pastikan siap secara sistem."},
+  hostage:{name:"The Hostage",emoji:"💸",tagline:"Mau resign — tapi KPR, cicilan, anak sekolah.",desc:"Bukan tidak mau keluar — tapi tidak bisa. Angkanya belum memungkinkan. Ini bukan soal berani atau tidak. Ini soal tanggung jawab yang nyata dan berat.",cta:"Yang kamu butuhkan bukan motivasi. Yang kamu butuhkan adalah angka yang jelas."},
+  laststanding:{name:"The Last One Standing",emoji:"💪",tagline:"Timnya kena PHK semua — dia yang nanggung sendirian.",desc:"Selamat dari PHK tapi itu bukan hadiah. Kerjaan 4 orang sekarang di pundak kamu. Gaji sama. Tidak ada ucapan terima kasih.",cta:"Kamu yang paling kuat di tim — tapi kamu juga yang paling perlu jaga diri."},
+  newcomer:{name:"The Newcomer Shock",emoji:"😱",tagline:"Excited waktu interview — masuk minggu pertama langsung shock.",desc:"Sudah terlanjur resign dari tempat lama. Lalu masuk dan minggu pertama sudah tahu: ini bukan yang dijual waktu interview. Terjebak.",cta:"Kamu kena tipu sistem — bukan kamu yang salah."},
+  actor:{name:"The Corporate Actor",emoji:"🎭",tagline:"Senyum di depan bos — hancur di parkiran.",desc:"Performa di meeting sempurna. Tapi begitu pintu lift nutup — baru kelihatan aslinya. Bahkan orang terdekat tidak tahu kondisi kamu yang sebenarnya.",cta:"Akting terus itu melelahkan. Dan tidak sustainable."},
+  burned:{name:"The Burned",emoji:"😤",tagline:"Dulu percaya — sekarang harapannya sudah hancur semua.",desc:"Dulu masuk dengan semangat. Percaya perusahaan ini beda, bosnya fair, kerja keras dihargai. Satu per satu hancur. Tidak marah lagi — hanya tidak percaya.",cta:"Kepercayaan yang hancur bisa dibangun lagi — di tempat yang tepat."},
+  survivor:{name:"The Survivor",emoji:"👑",tagline:"Sudah lihat 7 bos ganti — masih di sini juga.",desc:"Veteran sejati. Sudah through restrukturisasi, merger, ganti CEO berkali-kali. Hafal semua pola politik kantor. Hidupnya bukan thriving — tapi surviving dengan sangat baik.",cta:"Survive itu skill. Tapi kamu bisa lebih dari sekedar survive."},
+  comfortable:{name:"The Comfortable Prisoner",emoji:"😎",tagline:"Gajinya cukup — hidupnya oke — tapi 5 tahun berlalu tanpa sadar.",desc:"Bukan tidak bahagia — tapi juga tidak passionate. Zona nyaman yang sempurna. Yang menakutkan: 5 tahun berlalu dan tidak ada yang berkembang.",cta:"Penjara yang paling sulit ditinggalkan adalah yang paling nyaman."},
+  pleaser:{name:"The People Pleaser",emoji:"🙏",tagline:"Tidak bisa bilang tidak — sampai tenggelam sendiri.",desc:"Selalu iya. Bos minta — iya. Rekan minta tolong — iya. Deadline dobel — iya. Sampai kerja 12 jam sehari dan tidak tahu cara memproteksi diri sendiri.",cta:"Bilang tidak itu bukan egois. Itu sehat."},
+  midlife:{name:"The Midlife Crisis",emoji:"🌀",tagline:"Ini hidup gue — cuma begini?",desc:"Usia 35-45. Tiba-tiba mempertanyakan segalanya. 15 tahun di industri ini — dan apa yang dicapai sebenernya? Apakah masih ada waktu untuk berubah arah?",cta:"Pertanyaan itu muncul bukan tanpa alasan. Dengerin."},
+  reshuffled:{name:"The Reshuffled",emoji:"🔄",tagline:"Sudah 3x survive restrukturisasi — tapi jabatannya makin aneh.",desc:"Finance tiba-tiba jadi admin. Marketing tiba-tiba handle customer service. Bukan dipecat — tapi pelan-pelan dipinggirkan lewat perubahan jobdesc yang tidak masuk akal.",cta:"Kamu tidak kehilangan value — kamu cuma di tempat yang salah."},
+  underdog:{name:"The Underdog",emoji:"🏆",tagline:"Deliver terus. Hasilnya nyata. Tapi yang naik bukan dia.",desc:"Kerja keras, angkanya selalu bagus. Tidak main politik. Tapi yang naik selalu orang lain. Sistem tidak meritokrasi — dan kamu tahu itu.",cta:"Kamu terlalu bagus untuk sistem yang tidak menghargai kamu."},
+  invisible:{name:"The Invisible Star",emoji:"🌟",tagline:"Semua tahu dia bagus — kecuali yang satu orang itu.",desc:"Semua department respek. Attitude oke. Tapi tidak klik dengan bos yang pegang keputusan. Dan di korporat Indonesia — itu yang menentukan segalanya.",cta:"Value kamu nyata. Tempatkan dirimu di mana itu diakui."},
+  overqualified:{name:"The Overqualified",emoji:"🎓",tagline:"Harusnya dia yang jadi bos — tapi masih disuruh bikin notulen.",desc:"Kemampuannya jauh di atas posisinya. Harusnya sudah jadi manager — masih jadi staff senior. Setiap hari kerja di bawah kapasitas.",cta:"Kamu terlalu besar untuk tempat ini. Dan kamu tahu itu."},
+  ceiling:{name:"The Glass Ceiling",emoji:"🧱",tagline:"Sudah lakukan semua yang benar — tapi tetap tidak bisa naik.",desc:"Sudah proven, sudah qualified. Tapi ada dinding tak terlihat. Selalu ada alasan: belum waktunya, ada kandidat lain. Sistemnya yang broken — bukan kamu.",cta:"Barrier itu nyata. Tapi bukan permanent."},
+  lucky:{name:"The Lucky One",emoji:"🍀",tagline:"Selalu ngerasa naik bukan karena layak — tapi karena keberuntungan.",desc:"Posisi bagus, karir oke — tapi dibayangi pertanyaan: sebenernya gue sepantas itu ga? Takut suatu hari semua orang tahu.",cta:"Kamu ada di sana bukan karena keberuntungan saja."},
+  trapped:{name:"The Trapped Specialist",emoji:"🔒",tagline:"Jago di satu bidang — tapi skillnya mulai tidak relevan.",desc:"10 tahun jadi expert. Tapi AI masuk, teknologi bergeser. Keahlian yang selama ini jadi keunggulan mulai terasa kuno. Mau belajar tapi tidak tahu mulai dari mana.",cta:"Expertise lama masih berharga — tapi perlu diperbarui."},
+  dinosaur:{name:"The Dinosaur",emoji:"🦕",tagline:"Takut AI dan teknologi baru mengambil pekerjaannya.",desc:"Bukan bodoh — tapi tidak tumbuh di era digital. Lalu AI masuk dan semua bicara automation dan tools baru. Diam karena takut kelihatan tidak kompeten.",cta:"Dunia berubah — tapi kamu masih bisa ikut."},
+  performer:{name:"The Real Performer",emoji:"🏅",tagline:"Deliver terus. Hasilnya nyata. Dan kamu tahu persis nilai kamu.",desc:"Satu-satunya tipe yang genuinely bagus dan sadar akan nilainya. Pain point-nya bukan burnout — tapi soal apakah perusahaan ini layak untuknya.",cta:"Kamu punya leverage. Gunakan dengan benar."},
+  planner:{name:"The Silent Planner",emoji:"🌱",tagline:"Di luar normal — di dalam sudah nyiapin jalan keluar.",desc:"Kelihatan karyawan biasa. Tapi diam-diam sudah update LinkedIn, nabung emergency fund, riset peluang lain. Tidak drama — hanya bergerak pelan tapi pasti.",cta:"Ini cara paling cerdas untuk keluar. Kamu sudah di jalur yang benar."},
+  hustler:{name:"The Side Hustler",emoji:"💼",tagline:"Di kantor kerja normal — di luar diam-diam bangun income lain.",desc:"Sudah action. Punya freelance project, jual produk digital, bangun channel konten. Siang karyawan, malam entrepreneur. Menunggu income sampingan cukup untuk jadi pintu keluar.",cta:"Kamu sudah mulai. Sekarang tinggal pastikan exit-nya benar."},
+  comeback:{name:"The Comeback",emoji:"💔",tagline:"Pernah coba bisnis — gagal — balik ke corporate dengan trauma.",desc:"Pernah berani keluar. Tapi tidak berhasil. Akhirnya balik. Sekarang masih di kantor — hatinya masih di luar. Antara takut gagal lagi dan takut menyesal.",cta:"Gagal pertama bukan akhir. Itu sekolah mahal yang sudah kamu bayar."},
+  fallenstar:{name:"The Fallen Star",emoji:"🌠",tagline:"Dulu raja — bos baru masuk — tiba-tiba invisible.",desc:"Di era bos lama, bintang. Semua orang kenal, semua respek. Lalu bos baru masuk bawa circle sendiri. Tiba-tiba namanya jarang disebut.",cta:"Kamu tidak berubah. Landscape-nya yang berubah."},
+  oldregime:{name:"The Old Regime",emoji:"🏛️",tagline:"Bos lama pergi — dia ikut tenggelam tanpa salah apapun.",desc:"Loyal ke bos lama, dekat dengan sistem lama. Bos baru masuk dan langsung baca situasi. Pelan-pelan dipinggirkan — bukan karena tidak perform, tapi karena dianggap loyalis lama.",cta:"Bukan salah kamu. Tapi kamu perlu langkah berikutnya."},
+  outsider:{name:"The Outsider",emoji:"🚪",tagline:"Kerja paling keras — tapi ga pernah masuk circle.",desc:"Deliverable bagus, attitude oke. Tapi tidak pernah diajak makan siang bareng tim inti. Tidak dapat info penting duluan. Bukan karena tidak kompeten — tapi karena tidak masuk secara sosial.",cta:"Di tempat yang tepat, kamu akan dilihat."},
+  scapegoat:{name:"The Scapegoat",emoji:"🎯",tagline:"Apapun yang salah di kantor — nama dia yang disebut.",desc:"Project gagal? Salah dia. Klien komplain? Salah dia. Padahal cuma eksekutor. Lama-kelamaan mulai percaya kalau memang dia yang bermasalah. Padahal sistemnya yang broken.",cta:"Kamu bukan masalahnya. Sistemnya yang broken."},
+  orphan:{name:"The Corporate Orphan",emoji:"👥",tagline:"Mentor dan figur pembimbingnya hilang — sekarang kehilangan arah.",desc:"Ada satu orang yang selama ini jadi kompas. Lalu orang itu pergi. Tiba-tiba sendirian tanpa guidance. Kehilangan anchor yang selama ini bikin confident.",cta:"Mentor pergi — tapi nilai yang diajarkan tidak hilang."},
+  licker:{name:"The Licker",emoji:"👅",tagline:"Ga pernah deliver — tapi selalu di foto bareng bos.",desc:"Masterclass dalam membuat bos merasa penting. Hasil kerja biasa-biasa saja tapi naik jabatan teratur. Semua orang tahu — tidak ada yang bisa apa-apa.",cta:"Tahu tipe ini artinya kamu tahu cara sistemnya bekerja."},
+  golden:{name:"The Golden Child",emoji:"🐑",tagline:"Kerja biasa — dapat semua yang terbaik.",desc:"Bukan yang paling pintar atau paling rajin — tapi selalu dapat yang terbaik. Masuk circle yang tepat sejak hari pertama. Passively disukai sistem.",cta:"Sistem tidak selalu adil. Tapi kamu bisa keluar dari sistem itu."},
+  politician:{name:"The Politician",emoji:"🏛️",tagline:"Tidak perlu jadi yang terpintar — cukup jadi yang paling pintar baca situasi.",desc:"Bermain di semua arah. Jago bangun aliansi, tahu siapa yang punya pengaruh nyata. Selalu survive karena pintar baca situasi sebelum orang lain sadar ada yang berubah.",cta:"Skill navigasi itu berharga — tapi bisa dipakai untuk hal yang lebih besar."},
+  onandoff:{name:"The On-and-Off",emoji:"🔁",tagline:"Mau resign, takut, stay, menyesal — terus berulang.",desc:"Belum yakin. Malamnya buka LinkedIn dan apply sana-sini. Paginya masuk kantor lagi. Sudah 2-3 tahun dalam loop yang sama. Takutnya selalu lebih besar dari frustrasinya.",cta:"Loop ini tidak akan berhenti sendiri. Kamu perlu sistem — bukan motivasi."},
+};
+
+// ── QUESTIONS ──
+const QS = [
+  {
+    q:"Senin pagi, alarm bunyi. Yang pertama lo rasain adalah...",
+    opts:[
+      {t:"Mual. Literally mual.", w:{timebomb:3,burned:2,slowburn:2}},
+      {t:"Langsung cek email — siapa yang udah kirim masalah dari tadi malam.", w:{pleaser:3,performer:2,laststanding:2}},
+      {t:"Biasa aja. Udah ga ngerasa apa-apa.", w:{zombie:4,comfortable:2,ghost:1}},
+      {t:"Tenang — karena lo udah tahu ini tidak akan lama lagi.", w:{ghost:3,planner:3,hustler:2}},
+    ]
+  },
+  {
+    q:"Lo baru selesai meeting panjang yang ga jelas. Lo...",
+    opts:[
+      {t:"Langsung buka LinkedIn di toilet.", w:{timebomb:3,onandoff:3,burned:2}},
+      {t:"Senyum ke semua orang, lalu ngeluh ke temen di WA.", w:{actor:4,burned:2,outsider:1}},
+      {t:"Duduk diam. Ini udah ketiga kalinya minggu ini.", w:{zombie:3,slowburn:3,scapegoat:2}},
+      {t:"Langsung noted action items — lo yang bakal jalanin semuanya.", w:{pleaser:3,laststanding:3,underdog:2}},
+    ]
+  },
+  {
+    q:"Ada project besar masuk. Nama lo...",
+    opts:[
+      {t:"Ga disebut. Lagi.", w:{outsider:4,invisible:4,scapegoat:2}},
+      {t:"Disebut — tapi sebagai yang ngerjain, bukan yang present ke bos.", w:{underdog:4,invisible:3,laststanding:2}},
+      {t:"Disebut pertama — karena lo yang paling deket sama bos.", w:{golden:4,licker:3,politician:3}},
+      {t:"Ga peduli. Lo udah punya project sendiri di luar.", w:{hustler:4,planner:3,performer:2}},
+    ]
+  },
+  {
+    q:"Temen satu tim lo resign. Reaksi lo...",
+    opts:[
+      {t:"Iri — dia berhasil keluar.", w:{timebomb:3,onandoff:3,hostage:2}},
+      {t:"Panik — kerjaan dia pasti limpah ke lo.", w:{laststanding:4,pleaser:3,slowburn:2}},
+      {t:"Biasa aja — udah sering lihat orang pergi.", w:{survivor:4,zombie:3,comfortable:2}},
+      {t:"Sedih — satu-satunya orang yang lo percaya pergi.", w:{orphan:4,outsider:3,scapegoat:2}},
+    ]
+  },
+  {
+    q:"Bos lo tiba-tiba chat di luar jam kerja. Lo...",
+    opts:[
+      {t:"Anxiety langsung naik. Pasti ada yang salah.", w:{slowburn:3,scapegoat:3,timebomb:2}},
+      {t:"Balas dalam 2 menit — ga mau kelihatan ga responsif.", w:{pleaser:4,licker:3,actor:2}},
+      {t:"Baca, tapi balas besok. Udah ga peduli.", w:{zombie:4,ghost:3,burned:3}},
+      {t:"Balas dengan semangat — meskipun kesel.", w:{actor:3,licker:2,golden:2}},
+    ]
+  },
+  {
+    q:"Kalau jujur soal karir lo sekarang — lo ngerasa...",
+    opts:[
+      {t:"Terjebak. Mau keluar tapi angkanya belum memungkinkan.", w:{hostage:4,onandoff:3,timebomb:2}},
+      {t:"Capek — udah kasih banyak tapi ga pernah dapet yang setara.", w:{underdog:4,invisible:3,laststanding:3}},
+      {t:"Bingung — udah lama di sini tapi ga tau mau ke mana.", w:{midlife:4,comfortable:3,reshuffled:2}},
+      {t:"Siap — lo tau nilai lo dan tau kapan harus pergi.", w:{performer:4,planner:3,hustler:3}},
+    ]
+  },
+  {
+    q:"Soal bos lo yang sekarang — paling menggambarkan situasi lo adalah...",
+    opts:[
+      {t:"Bos baru masuk dan lo tiba-tiba ga dianggap.", w:{oldregime:4,fallenstar:4,outsider:2}},
+      {t:"Bos lo suka — tapi sistemnya yang bikin lo ga bisa naik.", w:{ceiling:4,invisible:3,underdog:2}},
+      {t:"Lo yang paling disukai bos — dan lo manfaatin itu.", w:{licker:4,golden:3,politician:3}},
+      {t:"Lo ga peduli sama bos — lo fokus ke exit plan lo.", w:{ghost:3,planner:4,hustler:3}},
+    ]
+  },
+  {
+    q:"Minggu malam lo biasanya...",
+    opts:[
+      {t:"Anxiety — overthinking semua yang akan terjadi besok.", w:{slowburn:3,timebomb:3,onandoff:3}},
+      {t:"Scroll job portal — tapi ga apply ke mana-mana.", w:{onandoff:4,burned:3,timebomb:2}},
+      {t:"Biasa aja — udah mati rasa sama Senin.", w:{zombie:4,comfortable:3,ghost:2}},
+      {t:"Kerja sampingan — Minggu malam waktu produktif lo.", w:{hustler:4,planner:3,performer:2}},
+    ]
+  },
+  {
+    q:"Kondisi fisik lo akhir-akhir ini...",
+    opts:[
+      {t:"Maag, migrain, susah tidur — tapi tetap masuk.", w:{slowburn:4,timebomb:3,laststanding:2}},
+      {t:"Fine — lo jaga kesehatan karena itu satu-satunya yang lo kontrol.", w:{planner:3,performer:3,survivor:2}},
+      {t:"Entah — udah lama ga notice kondisi badan sendiri.", w:{zombie:4,comfortable:3,burned:2}},
+      {t:"Lebih baik dari sebelumnya — exit plan bikin lo lebih tenang.", w:{ghost:3,planner:3,hustler:2}},
+    ]
+  },
+  {
+    q:"Kalau ada ketidakadilan di kantor lo biasanya...",
+    opts:[
+      {t:"Diam — ga punya backing untuk speak up.", w:{scapegoat:4,outsider:3,orphan:3}},
+      {t:"Ngomong ke orang yang tepat — dengan cara yang tepat.", w:{politician:4,survivor:3,performer:2}},
+      {t:"Makin yakin harus keluar dari sistem ini.", w:{timebomb:3,burned:3,planner:2}},
+      {t:"Udah ga kaget — ini udah biasa.", w:{zombie:4,survivor:3,comfortable:3}},
+    ]
+  },
+  {
+    q:"Soal skill dan karir ke depan — lo...",
+    opts:[
+      {t:"Takut AI dan teknologi baru bikin lo ga relevan.", w:{dinosaur:4,trapped:4,midlife:2}},
+      {t:"Jago di bidang lo — tapi udah ngerasa era lo mulai lewat.", w:{trapped:4,reshuffled:3,dinosaur:3}},
+      {t:"Udah mulai belajar hal baru dan bangun skill yang lebih relevan.", w:{planner:3,hustler:3,performer:2}},
+      {t:"Skillnya ada — tapi ga ada yang kasih ruang untuk berkembang.", w:{overqualified:4,ceiling:3,underdog:3}},
+    ]
+  },
+  {
+    q:"Waktu apply kerja di tempat ini dulu, lo...",
+    opts:[
+      {t:"Excited banget — ternyata realitanya beda jauh.", w:{newcomer:4,burned:3,onandoff:2}},
+      {t:"Realistis — dan ternyata sesuai ekspektasi lo.", w:{survivor:3,comfortable:3,performer:2}},
+      {t:"Ga punya pilihan lain waktu itu.", w:{hostage:3,comeback:3,reshuffled:2}},
+      {t:"Pernah resign dari sini, tapi balik lagi.", w:{comeback:4,onandoff:3,survivor:2}},
+    ]
+  },
+  {
+    q:"Satu kalimat yang paling menggambarkan kondisi lo sekarang...",
+    opts:[
+      {t:'"Gue capek tapi belum bisa berhenti."', w:{hostage:3,slowburn:3,pleaser:3}},
+      {t:'"Gue tahu harus keluar — tapi takut."', w:{onandoff:4,timebomb:3,hostage:2}},
+      {t:'"Gue udah ga ngerasa apa-apa."', w:{zombie:4,burned:3,comfortable:2}},
+      {t:'"Gue baik-baik aja" — sambil senyum.', w:{actor:4,lucky:3,licker:2}},
+    ]
+  },
+  {
+    q:"Soal pengakuan di kantor — kondisi lo saat ini...",
+    opts:[
+      {t:"Lo kerja keras tapi yang dapat kredit selalu orang lain.", w:{scapegoat:3,underdog:4,invisible:3}},
+      {t:"Lo disukai semua orang — tapi bos lo ga klik sama lo.", w:{invisible:4,outsider:3,ceiling:2}},
+      {t:"Lo udah di posisi bagus — tapi ngerasa ga terlalu layak.", w:{lucky:4,actor:3,performer:1}},
+      {t:"Lo deliver — dan lo tau itu sudah cukup.", w:{performer:4,planner:3,hustler:2}},
+    ]
+  },
+  {
+    q:"Kalau lo jujur ke diri sendiri — alasan lo masih di sini adalah...",
+    opts:[
+      {t:"Gaji dan benefit. Tidak ada yang lain.", w:{hostage:4,comfortable:3,zombie:3}},
+      {t:"Belum ketemu yang lebih baik — tapi lagi nyari.", w:{onandoff:3,ghost:3,burned:2}},
+      {t:"Takut. Titik.", w:{onandoff:4,timebomb:3,hostage:3}},
+      {t:"Masih ada yang bisa dipelajari — tapi sebentar lagi habis.", w:{performer:3,planner:3,underdog:2}},
+    ]
+  },
+  {
+    q:"Hubungan lo sama rekan-rekan kerja saat ini...",
+    opts:[
+      {t:"Lo punya circle kecil yang dipercaya — sisanya ga kenal lo.", w:{outsider:3,orphan:3,invisible:3}},
+      {t:"Lo kenal semua orang — dan tau cara pakai koneksi itu.", w:{politician:4,survivor:3,licker:2}},
+      {t:"Lo ga terlalu peduli — lebih fokus ke kerjaan sendiri.", w:{zombie:3,ghost:3,performer:2}},
+      {t:"Tim lo udah pada pergi — lo yang tersisa.", w:{laststanding:4,orphan:3,survivor:2}},
+    ]
+  },
+  {
+    q:"5 tahun lagi, lo membayangkan diri lo...",
+    opts:[
+      {t:"Masih di sini — dan itu bikin lo takut.", w:{comfortable:4,zombie:3,hostage:3}},
+      {t:"Udah keluar dan punya sesuatu yang lo bangun sendiri.", w:{hustler:4,planner:4,comeback:3}},
+      {t:"Di posisi yang lebih tinggi — entah di sini atau di tempat lain.", w:{performer:3,planner:3,underdog:2}},
+      {t:"Ga tahu — dan itu yang paling menakutkan.", w:{midlife:4,reshuffled:3,burned:2}},
+    ]
+  },
+  {
+    q:"Soal finansial — kalau lo resign besok...",
+    opts:[
+      {t:"Tidak bisa — angkanya belum memungkinkan.", w:{hostage:4,onandoff:3,timebomb:2}},
+      {t:"Bisa — udah dihitung dan udah siap.", w:{ghost:4,planner:4,performer:3}},
+      {t:"Belum dihitung — takut hasilnya bikin makin stuck.", w:{onandoff:3,burned:3,zombie:2}},
+      {t:"Ga perlu khawatir — udah ada income lain.", w:{hustler:4,planner:3,sidehustler:3}},
+    ]
+  },
+  {
+    q:"Yang paling bikin lo stay up Minggu malam adalah...",
+    opts:[
+      {t:"Mikirin drama kantor yang ga ada habisnya.", w:{actor:3,slowburn:3,scapegoat:3}},
+      {t:"Ngerjain side project — ini yang bikin lo semangat.", w:{hustler:4,planner:3,performer:2}},
+      {t:"Scrolling — ga produktif tapi ga bisa tidur.", w:{onandoff:4,zombie:3,burned:3}},
+      {t:"Ga ada yang spesial — besok ya besok.", w:{comfortable:4,survivor:3,zombie:2}},
+    ]
+  },
+  {
+    q:"Satu hal yang pengen lo ubah dari kondisi lo sekarang...",
+    opts:[
+      {t:"Mau punya keberanian untuk akhirnya keluar.", w:{timebomb:3,onandoff:4,hostage:3}},
+      {t:"Mau diakui dan dihargai sesuai kontribusi lo.", w:{underdog:4,invisible:3,scapegoat:3}},
+      {t:"Mau punya rencana yang jelas — bukan cuma niat.", w:{onandoff:3,burned:3,midlife:3}},
+      {t:"Sebenernya kondisi lo oke — lo cuma ingin lebih berkembang.", w:{performer:4,planner:3,comfortable:2}},
+    ]
+  }  ,
+  {
+    q:"Lo baru masuk kerja di tempat baru. Minggu pertama, lo ngerasa...",
+    opts:[
+      {t:"Excited — ini yang lo cari selama ini.", w:{performer:3,planner:2,ghost:2}},
+      {t:"Shock — ini beda banget sama yang dijual waktu interview.", w:{newcomer:4,burned:3,timebomb:2}},
+      {t:"Biasa aja — lo udah sering pindah, udah kebal.", w:{survivor:4,comeback:3,comfortable:2}},
+      {t:"Ga relevan — lo belum pernah pindah atau lagi ga di tahap ini.", w:{hostage:2,zombie:2,comfortable:2}},
+    ]
+  },
+  {
+    q:"Soal posisi dan jabatan lo sekarang — yang paling pas adalah...",
+    opts:[
+      {t:"Lo harusnya udah jadi bos — tapi masih disuruh ngerjain hal-hal junior.", w:{overqualified:4,underdog:3,invisible:2}},
+      {t:"Lo udah di posisi senior — tapi ada dinding ga kelihatan yang halangi naik lebih tinggi.", w:{ceiling:4,glass:3,invisible:2}},
+      {t:"Posisi lo oke — tapi bukan karena lo yang paling layak.", w:{lucky:4,golden:3,licker:2}},
+      {t:"Posisi lo sesuai — dan lo masih bisa naik kalau sistemnya fair.", w:{performer:3,underdog:3,planner:2}},
+    ]
+  },
+  {
+    q:"Bos lama lo pergi atau diganti. Yang terjadi sama karir lo setelah itu...",
+    opts:[
+      {t:"Lo yang selama ini bersinar — tiba-tiba jadi invisible.", w:{fallenstar:4,oldregime:3,outsider:2}},
+      {t:"Lo dianggap 'orang lama' dan mulai dipinggirkan pelan-pelan.", w:{oldregime:4,fallenstar:3,reshuffled:3}},
+      {t:"Ga ada perubahan — lo tetap jalan sendiri.", w:{outsider:3,zombie:3,comfortable:2}},
+      {t:"Justru jadi kesempatan — lo mulai lebih kelihatan.", w:{politician:3,performer:3,planner:2}},
+    ]
+  },
+  {
+    q:"Waktu lo lagi di toilet kantor sendirian, yang ada di pikiran lo adalah...",
+    opts:[
+      {t:"'Kapan ini semua berakhir.'", w:{timebomb:3,burned:3,onandoff:3}},
+      {t:"'Gue harus keluar dari sini — tapi belum bisa.'", w:{hostage:4,onandoff:3,ghost:2}},
+      {t:"'Gue udah ga peduli sebenernya.'", w:{zombie:4,comfortable:3,burned:2}},
+      {t:"'Oke, langkah selanjutnya apa.'", w:{planner:4,performer:3,hustler:3}},
+    ]
+  },
+  {
+    q:"Satu hal yang paling lo kangenin dari versi lo yang dulu — sebelum terlalu lama di sini...",
+    opts:[
+      {t:"Semangat. Lo dulu beneran excited sama pekerjaan.", w:{burned:4,slowburn:3,midlife:3}},
+      {t:"Kepercayaan diri. Lo dulu ga doubt diri sendiri sebanyak ini.", w:{lucky:4,scapegoat:3,orphan:3}},
+      {t:"Waktu. Lo dulu punya hidup di luar kerjaan.", w:{pleaser:4,laststanding:3,slowburn:2}},
+      {t:"Ga ada — lo masih oke sebenernya.", w:{comfortable:4,survivor:3,performer:2}},
+    ]
+  },
+];
+
+let userName = '';
+let userEmail = '';
+let curQ = 0;
+let scores = {};
+let selectedOpt = null;
+
+Object.keys(TIPES).forEach(k => scores[k] = 0);
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function startQuiz() {
+  const code = document.getElementById('codeInput').value.toUpperCase().trim().replace(/[^A-Z0-9]/g,'');
+  const valid = ['TIPEKARYAWAN'];
+  if (!valid.includes(code)) {
+    document.getElementById('codeErr').textContent = 'Kode salah. Cek email dari The 40 Reset.';
+    document.getElementById('codeInput').style.borderColor = '#ff6b6b';
+    setTimeout(() => {
+      document.getElementById('codeErr').textContent = '';
+      document.getElementById('codeInput').style.borderColor = '';
+    }, 3000);
+    return;
+  }
+  showScreen('quiz');
+  document.getElementById('progressWrap').style.display = 'flex';
+  renderQ();
+}
+
+function saveEmail(name, email) {
+  // Save to localStorage as backup
+  try {
+    const leads = JSON.parse(localStorage.getItem('quiz_leads') || '[]');
+    leads.push({ name, email, time: new Date().toISOString() });
+    localStorage.setItem('quiz_leads', JSON.stringify(leads));
+  } catch(e) {}
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderQ() {
+  const q = QS[curQ];
+  document.getElementById('qNum').textContent = `Pertanyaan ${curQ + 1} dari ${QS.length}`;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qSub').textContent = '';
+  document.getElementById('progressFill').style.width = `${(curQ / QS.length) * 100}%`;
+  document.getElementById('progressText').textContent = `${curQ}/${QS.length}`;
+
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((opt, i) => {
+    const el = document.createElement('div');
+    el.className = 'opt';
+    el.innerHTML = `<div class="opt-letter">${letters[i]}</div><div class="opt-text">${opt.t}</div>`;
+    el.onclick = () => selectOpt(i, el);
+    opts.appendChild(el);
+  });
+  selectedOpt = null;
+  document.getElementById('btnNext').disabled = true;
+}
+
+function selectOpt(i, el) {
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedOpt = i;
+  document.getElementById('btnNext').disabled = false;
+}
+
+function nextQ() {
+  if (selectedOpt === null) return;
+  const weights = QS[curQ].opts[selectedOpt].w;
+  Object.entries(weights).forEach(([k, v]) => {
+    if (scores[k] !== undefined) scores[k] += v;
+  });
+  curQ++;
+  if (curQ >= QS.length) {
+    showResult();
+  } else {
+    renderQ();
+  }
+}
+
+function showResult() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressText').textContent = `${QS.length}/${QS.length}`;
+
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const top1 = TIPES[sorted[0][0]];
+  const top2 = TIPES[sorted[1][0]];
+  const top3 = TIPES[sorted[2][0]];
+
+  const div = document.getElementById('result');
+  div.innerHTML = `
+    <div class="result-tag">Hasil Quiz — The 40 Reset</div>
+    <p class="result-intro">Dari 25 pertanyaan tadi, ini yang paling menggambarkan kamu:</p>
+
+    <div class="tipe-card">
+      <div class="tipe-rank">🥇 Tipe Utama Kamu</div>
+      <span class="tipe-emoji">${top1.emoji}</span>
+      <div class="tipe-name">${top1.name}</div>
+      <div class="tipe-tagline">${top1.tagline}</div>
+      <div class="tipe-desc">${top1.desc}</div>
+    </div>
+
+    <div class="tipe-card" style="border-color:#2A2A3A">
+      <div class="tipe-rank" style="color:var(--muted)">🥈 Sisi Lain Kamu</div>
+      <span class="tipe-emoji">${top2.emoji}</span>
+      <div class="tipe-name" style="font-size:1.2rem">${top2.name}</div>
+      <div class="tipe-tagline">${top2.tagline}</div>
+      <div class="tipe-desc">${top2.desc}</div>
+    </div>
+
+    <div class="tipe-card" style="border-color:#1A1A2A">
+      <div class="tipe-rank" style="color:var(--muted)">🔍 Hidden Side Kamu</div>
+      <span class="tipe-emoji">${top3.emoji}</span>
+      <div class="tipe-name" style="font-size:1.1rem">${top3.name}</div>
+      <div class="tipe-tagline">${top3.tagline}</div>
+      <div class="tipe-desc">${top3.desc}</div>
+    </div>
+
+    <div class="divider-gold"></div>
+
+    <div class="msg-from">
+      <p>Apapun tipe kamu — kalau kamu lagi mikirin resign, pastikan itu bukan keputusan emosional.<br><br>
+      <strong>Gue udah lebih dari 16 tahun bekerja di korporasi.</strong> Gue tahu bedanya resign yang benar dan resign yang menyesal. Dan gue tahu — keputusan ini bisa mengubah segalanya, ke arah yang tepat.<br><br>
+      — Dhimas Garendi</p>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-label">Langkah Berikutnya</div>
+      <a href="https://lynk.id/the_40_reset" class="btn-cta-primary" target="_blank">
+        Lihat semua tools The 40 RESET →
+      </a>
+    </div>
+
+    <div class="share-section">
+      <div class="share-label">Share hasil kamu</div>
+      <button class="btn-share" onclick="shareResult('${top1.emoji} ${top1.name}', '${top1.tagline}')">📲 Share ke Story / WA</button>
+    </div>
+
+    <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:1.5rem;text-align:center">
+    <div style="font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem">❤️ Program Berbagi The 40 Reset</div>
+    <div style="font-size:.85rem;color:var(--muted);line-height:1.7;font-weight:500">Setiap produk yang kamu beli — <strong style="color:var(--text)">10% langsung gue sumbangkan</strong> ke yayasan yang membutuhkan. Gue share bukti transfernya setiap bulan. Karena reset bukan cuma soal diri sendiri.</div>
+  </div>
+  <div class="footer-brand">The 40 Reset · by Dhimas Garendi</div>
+  `;
+
+  showScreen('result');
+}
+
+function shareResult(name, tagline) {
+  const text = `Gue baru ngerjain quiz "Kamu Tipe Karyawan Apa?" dan hasilnya:\n\n${name}\n"${tagline}"\n\nCek tipe kamu juga di: https://the40reset.github.io/quiz-tipe-karyawan`;
+  if (navigator.share) {
+    navigator.share({ title: 'Kamu Tipe Karyawan Apa?', text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => showToast('Teks sudah dicopy! Paste ke WA atau IG Story.'));
+  }
+}
+document.addEventListener('keydown', e => { if(e.key==='Enter') startQuiz(); });
+</script>
+</body>
+</html>
