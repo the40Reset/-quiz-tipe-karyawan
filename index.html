@@ -45,6 +45,12 @@ h1 em{font-style:normal;color:var(--gold)}
 .arch-name{font-size:.78rem;font-weight:900;color:#fff;line-height:1.15}
 .arch-tag{font-size:.66rem;color:var(--muted);line-height:1.35;margin-top:.25rem;font-weight:650;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .lock-panel{margin-top:1.2rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:1rem}
+.buy-access{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.09);text-align:center}
+.buy-access p{color:var(--muted);font-size:.84rem;font-weight:700;margin-bottom:.7rem}
+.btn-buy-access{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;padding:.95rem 1rem;border:1.5px solid var(--gold);border-radius:14px;background:rgba(247,184,45,.08);color:var(--gold);font-family:var(--font);font-size:.94rem;font-weight:900;text-decoration:none;transition:background .18s ease,transform .18s ease}
+.btn-buy-access:hover{background:rgba(247,184,45,.16)}
+.btn-buy-access:active{transform:scale(.99)}
+
 .form-label{font-size:.74rem;font-weight:900;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;display:block}
 .form-input{width:100%;padding:1rem 1.05rem;background:rgba(5,8,13,.72);border:1.5px solid rgba(255,255,255,.16);color:var(--text);font-size:1.05rem;font-family:var(--font);font-weight:900;border-radius:14px;outline:none;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.18em;text-align:center;min-height:56px}
 .form-input:focus{border-color:var(--gold)}
@@ -131,6 +137,10 @@ h1 em{font-style:normal;color:var(--gold)}
   <p class="section-sub">Sebelum mulai, lihat dulu 34 kemungkinan tipe yang bisa muncul dari jawaban Anda.</p>
   <div class="arch-grid" id="archGrid"></div>
   <div class="lock-panel">
+    <div class="buy-access">
+      <p>Belum punya kode akses?</p>
+      <a href="https://lynk.id/the_40_reset/51m58jdyz1kx/checkout" class="btn-buy-access" target="_blank" rel="noopener noreferrer">Beli Akses Quiz →</a>
+    </div>
     <label class="form-label" for="codeInput">Kode akses</label>
     <input type="text" id="codeInput" class="form-input" placeholder="KODE AKSES" maxlength="20" autocomplete="off">
     <div id="codeErr" style="color:#ff6b6b;font-size:.85rem;min-height:1.2rem;margin-bottom:.5rem;font-weight:800;text-align:center"></div>
@@ -438,7 +448,7 @@ function showResult(){document.getElementById('progressFill').style.width='100%'
   <div class="result-hero" style="background-image:url('${assetFor(top1Key)}')"><div class="result-content"><div class="result-rank">🥇 Tipe Utama Kamu</div><div class="result-emoji">${top1.emoji}</div><div class="result-name">${top1.name}</div><div class="result-tagline">${top1.tagline}</div><div class="result-desc">${top1.desc}</div></div></div>
   <div class="side-grid"><div class="side-card"><div class="side-img" style="background-image:url('${assetFor(top2Key)}')"></div><div><div class="side-rank">🥈 Sisi Lain Kamu</div><div class="side-name">${top2.emoji} ${top2.name}</div><div class="side-desc">${top2.desc}</div></div></div><div class="side-card"><div class="side-img" style="background-image:url('${assetFor(top3Key)}')"></div><div><div class="side-rank">🔍 Hidden Side Kamu</div><div class="side-name">${top3.emoji} ${top3.name}</div><div class="side-desc">${top3.desc}</div></div></div></div>
   <div class="msg-from"><p>Apapun tipe kamu — kalau kamu lagi mikirin resign, pastikan itu bukan keputusan emosional.<br><br><strong>Gue udah lebih dari 16 tahun bekerja di korporasi.</strong> Gue tahu bedanya resign yang benar dan resign yang menyesal. Dan gue tahu — keputusan ini bisa mengubah segalanya, ke arah yang tepat.<br><br>— Dhimas Garendi</p></div>
-  <div class="cta-section"><div class="cta-label">Langkah Berikutnya</div><a href="https://lynk.id/the_40_reset" class="btn-cta-primary" target="_blank">Lihat semua tools The 40 RESET →</a></div>
+  <div class="cta-section"><div class="cta-label">Langkah Berikutnya</div><a href="https://the40resetofficial.com/" class="btn-cta-primary" target="_blank" rel="noopener noreferrer">Lihat semua tools The 40 RESET →</a></div>
   <div class="share-section"><button class="btn-secondary" onclick="location.reload()">Ulangi Quiz</button></div>
   <div class="don-box">❤️ Setiap produk yang kamu beli — <strong>10% langsung disumbangkan</strong> ke yayasan yang membutuhkan. Karena reset bukan cuma soal diri sendiri.</div><div class="footer-brand">The 40 Reset · by Dhimas Garendi</div>`;showScreen('result');}
 function shareResult(name,tagline){const text=`Gue baru ngerjain quiz "Kamu Tipe Karyawan Apa?" dan hasilnya:
